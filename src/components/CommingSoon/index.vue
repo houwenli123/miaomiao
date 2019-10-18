@@ -21,7 +21,10 @@ export default {
 </script>
 <style scoped>
 .commingSoon {
-    margin-bottom: 50px;
+    width: 100vw;
+    bottom: 0px;
+    position: absolute;
+    top: 59px;
 }
 .commingSoon-time {
     font-size: 14px;
