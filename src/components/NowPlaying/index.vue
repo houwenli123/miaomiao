@@ -21,7 +21,10 @@ export default {
 </script>
 <style scoped>
 .nowPlaying {
-    margin-bottom: 50px;
+    width: 100vw;
+    bottom: 0px;
+    position: absolute;
+    top: 59px;
 }
 .mui-table-view .mui-media-object {
     max-width: auto;

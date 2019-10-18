@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'ownIcon';
+    font-weight: normal;
+    font-style: normal;
+    src: url('../fonts/mui.ttf');
+    /* IE9*/
+    src: url('../fonts/mui.ttf') format('embedded-opentype'), /* IE6-IE8 */
+    /* url('emotion.woff') format('woff'), /* chrome、firefox */
+    /* url('emotion.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    /* url('emotion.svg#svgFontName') format('svg');  */
+    /* iOS 4.1- */
+}
+
+.own-icon {
+    font-family: ownIcon;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.own-icon.own-active {
+    color: #007aff;
+}
+
+.own-icon-search:before {
+    content: '\e466';
+}

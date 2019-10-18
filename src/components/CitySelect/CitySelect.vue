@@ -1,96 +1,79 @@
 <template>
-    <div id="own-city-select">
-        <div id="dw" class="own-dw-city">
-            <p class="own-title">定位城市</p>
-            <div class="own-content">
-                <a class="own-cityBtn">北京</a>
+    <Scroller ref="cityList">
+        <div id="own-city-select" ref="ownCitySelect">
+            <div id="dw" class="own-dw-city">
+                <h2 class="own-title" id="dw-city">定位城市</h2>
+                <div class="own-content">
+                    <a class="own-cityBtn">北京</a>
+                </div>
             </div>
-        </div>
-        <div id="fw" class="own-fw-city">
-            <p class="own-title">最近访问城市</p>
-            <div class="own-content">
-                <a class="own-cityBtn">天津</a>
+            <div id="fw" class="own-fw-city">
+                <h2 class="own-title" id="history-city">最近访问城市</h2>
+                <div class="own-content">
+                    <a v-for="item in cityHisList" :key="item.name" class="own-cityBtn">{{item.name}}</a>
+                </div>
             </div>
-        </div>
-        <div id="hot" class="own-hot-city">
-            <p class="own-title">热门城市</p>
-            <div class="own-content">
-                <a class="own-cityBtn">上海</a>
-                <a class="own-cityBtn">北京</a>
-                <a class="own-cityBtn">广州</a>
-                <a class="own-cityBtn">上海</a>
-                <a class="own-cityBtn">北京</a>
-                <a class="own-cityBtn">广州</a>
-                <a class="own-cityBtn">上海</a>
-                <a class="own-cityBtn">北京</a>
-                <a class="own-cityBtn">广州</a>
-                <a class="own-cityBtn">上海</a>
-                <a class="own-cityBtn">北京</a>
+            <div id="hot" class="own-hot-city">
+                <h2 class="own-title" id="hot-city">热门城市</h2>
+                <div class="own-content">
+                    <a v-for="item in cityHotList" :key="item.name" class="own-cityBtn">{{item.name}}</a>
+                </div>
             </div>
-        </div>
-        <div class="own-px-city">
-            <p id="A" class="own-title">A</p>
-            <div class="own-px-content">
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">安庆</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-            </div>
-            <p id="B" class="own-title">B</p>
-            <div class="own-px-content">
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">安庆</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-            </div>
-            <p id="C" class="own-title">C</p>
-            <div class="own-px-content">
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">安庆</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
-                <p class="own-px-list">鞍山</p>
+            <div class="own-px-city">
+                <div v-for="(item) in cityAllList" :key="item.index">
+                    <h2 class="own-title" :id='item.index'>{{item.index}}</h2>
+                    <div class="own-px-content">
+                        <p v-for="(val) in item.list" :key="val.ym" class="own-px-list">{{val.name}}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="own-tag">
-            <a class="own-tag-name" href="#dw">定位</a>
-            <a class="own-tag-name" href="#fw">最近</a>
-            <a class="own-tag-name" href="#hot">热门</a>
-            <a class="own-tag-name" href="#A">A</a>
-            <a class="own-tag-name" href="#B">B</a>
-            <a class="own-tag-name" href="#C">C</a>
+            <a class="own-tag-name" @touchstart = "toScrollElement(0)">定位</a>
+            <a class="own-tag-name" @touchstart = "toScrollElement(1)">最近</a>
+            <a class="own-tag-name" @touchstart = "toScrollElement(2)">热门</a>
+            <a v-for="(item,index) in cityAllList" :key="item.index" class="own-tag-name" @touchstart = "toScrollElement(index+3)">{{item.index}}</a>
         </div>
-    </div>
+    </Scroller>
 </template>
 
 <script>
 export default {
-    name:'citySelect'
+    name:'citySelect',
+    props:{
+        cityHotList:{
+            type:Array,
+            default:()=>{}
+        },
+        cityHisList:{
+            type:Array,
+            default:()=>{}
+        },
+        cityAllList:{
+            type:Array,
+            default:()=>{}
+        }
+    },
+    methods:{
+        toScrollElement(index){
+            var doms = this.$refs.ownCitySelect.getElementsByTagName('h2');
+            var y = doms[index].offsetTop+61;
+            this.$refs.cityList.toScrollElement(y);
+        }
+    }
 }
 
 </script>
 <style scoped>
 #own-city-select {
     background-color: #EFEFF4;
+    position: relative;
+    margin-bottom: 51px;
 }
 .own-tag {
     position: fixed;
-    top:20%;
-    right: 3px;
+    top:180px;
+    right: 8px;
 }
 .own-tag-name {
     display: block;
