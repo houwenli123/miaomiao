@@ -4,26 +4,26 @@
             <div id="dw" class="own-dw-city">
                 <h2 class="own-title" id="dw-city">定位城市</h2>
                 <div class="own-content">
-                    <a class="own-cityBtn">北京</a>
+                    <a v-for="item in cityDwCity" :key="item.id" class="own-cityBtn" @touchstart="getDwCity(item.id)">{{item.name}}</a>
                 </div>
             </div>
             <div id="fw" class="own-fw-city">
                 <h2 class="own-title" id="history-city">最近访问城市</h2>
                 <div class="own-content">
-                    <a v-for="item in cityHisList" :key="item.name" class="own-cityBtn">{{item.name}}</a>
+                    <a v-for="item in cityHisList" :key="item.name" class="own-cityBtn" @touchstart="getDwCity(item.id)">{{item.name}}</a>
                 </div>
             </div>
             <div id="hot" class="own-hot-city">
                 <h2 class="own-title" id="hot-city">热门城市</h2>
                 <div class="own-content">
-                    <a v-for="item in cityHotList" :key="item.name" class="own-cityBtn">{{item.name}}</a>
+                    <a v-for="item in cityHotList" :key="item.name" class="own-cityBtn" @touchstart="getDwCity(item.id)">{{item.name}}</a>
                 </div>
             </div>
             <div class="own-px-city">
                 <div v-for="(item) in cityAllList" :key="item.index">
                     <h2 class="own-title" :id='item.index'>{{item.index}}</h2>
                     <div class="own-px-content">
-                        <p v-for="(val) in item.list" :key="val.ym" class="own-px-list">{{val.name}}</p>
+                        <p v-for="(val) in item.list" :key="val.ym" class="own-px-list" @touchstart="getDwCity(item.id)">{{val.name}}</p>
                     </div>
                 </div>
             </div>
@@ -41,6 +41,10 @@
 export default {
     name:'citySelect',
     props:{
+        cityDwCity:{
+            type:Array,
+            default:()=>{}
+        },
         cityHotList:{
             type:Array,
             default:()=>{}
@@ -59,6 +63,12 @@ export default {
             var doms = this.$refs.ownCitySelect.getElementsByTagName('h2');
             var y = doms[index].offsetTop+61;
             this.$refs.cityList.toScrollElement(y);
+        },
+        getDwCity(id){
+            console.log(id);
+            this.$api.city.cityChange(id).then((res) => {
+                console.log(res);
+            })
         }
     }
 }

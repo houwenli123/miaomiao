@@ -4,7 +4,7 @@
         <div class="content">
           <div class="content-body">
             <mt-navbar>
-              <router-link to="/movie/city" class='mint-tab-item'>城市<span class="mui-icon mui-icon-arrowdown"></span></router-link>
+              <router-link to="/movie/city" class='mint-tab-item'>北京<span class="mui-icon mui-icon-arrowdown"></span></router-link>
               <router-link to="/movie/nowPlaying" class='mint-tab-item'>正在上映</router-link>
               <router-link to="/movie/commingSoon" class='mint-tab-item'>即将上映</router-link>
               <router-link to="/movie/search" class='mint-tab-item'>搜索</router-link>

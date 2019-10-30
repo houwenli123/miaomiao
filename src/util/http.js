@@ -46,7 +46,7 @@ const errorHandle = (status, other) => {
             //403:token过期
             //清楚token并跳转登录页
         case '403':
-            tip('登陆过起，请重新登录');
+            tip('登陆过期，请重新登录');
             localStorage.removeItem('token');
             store.commit('loginSuccess', null);
             setTimeout(() => {
